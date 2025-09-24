@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
+      - name: Install Heroku CLI
+        uses: actions/checkout@v4
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Deploy to Heroku
         uses: kuboon/heroku-deploy@v3.15.1
