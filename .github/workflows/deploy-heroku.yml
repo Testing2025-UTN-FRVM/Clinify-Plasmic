@@ -15,12 +15,10 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.13.15
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "clinify-front-end" # Reemplaza con el nombre de tu app en Heroku
-          heroku_email: "agusliendo2004@gmail.com" # Reemplaza con tu email de Heroku
-          usedocker: false # Opcional, si usas un Dockerfile
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku login
+          heroku git:remote -a clinify-front-end
+          git push heroku HEAD:main
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
