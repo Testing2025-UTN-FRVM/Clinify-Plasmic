@@ -1,0 +1,23 @@
+name: Deploy to Heroku
+
+on:
+  workflow_run:
+    workflows: ["Sync, build and deploy Plasmic app"] # El nombre del primer flujo de trabajo
+    types:
+      - completed # Se activa cuando el flujo de trabajo ha finalizado
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Ejecutar solo si el flujo anterior fue exitoso
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "clinify-front-end" # Reemplaza con el nombre de tu app en Heroku
+          heroku_email: "agusliendo2004@gmail.com" # Reemplaza con tu email de Heroku
+          usedocker: false # Opcional, si usas un Dockerfile
