@@ -18,7 +18,7 @@ jobs:
         run: curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Deploy to Heroku
-        uses: kuboon/heroku-deploy@v3.15.1
+        uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "clinify-front-end" # Reemplaza con el nombre de tu app en Heroku
